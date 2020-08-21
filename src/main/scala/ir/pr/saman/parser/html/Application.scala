@@ -10,9 +10,8 @@ object Application extends App {
   implicit val jsonFormat = Json(DefaultFormats)
 
   logger.info(
-    jsonFormat.write(
+    jsonFormat.writePretty(
          extractArtistLegacyInfoService call "artist"
-
     )
   )
 }

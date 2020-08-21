@@ -27,7 +27,7 @@ trait ExtractArtistLegacyInfoUseCase extends ExtractArtistLegacyInfoService {
       result = filters map { case (k, v) =>
         val textBeforeRegex = extractPart(v)(document)
         val textAfterRegex = regex(k) match {
-          case regExpr: RegularExpression if regExpr.replace => regExpr.expr.replaceAllIn(textBeforeRegex, "")
+          case regExpr: RegularExpression if regExpr.replace => regExpr.expr.replaceFirstIn(textBeforeRegex, "")
           case o => o.expr.findFirstIn(textBeforeRegex) map castDataType getOrElse ""
         }
         k -> textAfterRegex
@@ -43,8 +43,8 @@ trait ExtractArtistLegacyInfoUseCase extends ExtractArtistLegacyInfoService {
           case (otherKey, otherValue) =>
             result2 get otherKey match {
               case Some(value) => otherValue match {
-                case l: List[Any] => (otherKey, value +: l)
-                case a: Any => (otherKey, List(a, value))
+                case l: List[Any] => (otherKey, (value +: l).distinct)
+                case a: Any => (otherKey, List(a, value).distinct)
               }
               case None => (otherKey, otherValue)
             }
