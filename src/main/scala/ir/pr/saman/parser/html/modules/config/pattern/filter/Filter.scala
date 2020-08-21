@@ -1,4 +1,4 @@
-package ir.pr.saman.parser.html.modules.config.pattern
+package ir.pr.saman.parser.html.modules.config.pattern.filter
 
 case class Filter(
                    tag: Option[Tag] = None,
