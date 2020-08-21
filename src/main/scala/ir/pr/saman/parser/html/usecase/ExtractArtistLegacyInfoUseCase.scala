@@ -45,23 +45,7 @@ trait ExtractArtistLegacyInfoUseCase extends ExtractArtistLegacyInfoService {
         works.append(artist - key)
       }
       name = artists.map(_._1).headOption.getOrElse("")
-    } yield  Map(key -> name, Constants.WORKS -> works)
-
-
-
-//          case (k, v) if k == Constants.ARTIST => (k, v)
-//          case (otherKey, otherValue) =>
-//            result2 get otherKey match {
-//              case Some(value) => otherValue match {
-//                works += ()
-////                case i: Int => (otherKey, value.toString.toInt + i)
-////                case l: List[Any] => (otherKey, (value +: l).distinct)
-////                case a: Any => (otherKey, List(a, value).distinct)
-//              }
-//              case None => (otherKey, otherValue)
-//            }
-//        }
-//      }
+    } yield  Map(key -> name, Constants.WORKS -> works.toList)
   }
 }
 
