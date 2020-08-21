@@ -1,6 +1,6 @@
 package ir.pr.saman.parser.html
 
-import ir.pr.saman.parser.html.usecase.GetArtistNameUseCase
+import ir.pr.saman.parser.html.usecase.ExtractArtistLegacyInfoUseCase
 import org.scalatest.WordSpec
 
 class ParserSpec extends WordSpec {
@@ -11,7 +11,7 @@ class ParserSpec extends WordSpec {
 
     "parser" should  {
       "extract the same artist name" in {
-        val name = GetArtistNameUseCase.call("Pablo Picasso")
+        val name = ExtractArtistLegacyInfoUseCase.call("Pablo Picasso")
         assert(name === artistName)
       }
     }

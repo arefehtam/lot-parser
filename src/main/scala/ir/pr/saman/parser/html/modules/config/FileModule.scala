@@ -1,6 +1,6 @@
 package ir.pr.saman.parser.html.modules.config
 
-object File extends ConfigModule {
+object FileModule extends ConfigModule {
 
   import collection.JavaConverters._
 
