@@ -9,6 +9,8 @@ import ir.pr.saman.parser.html.util.Constants
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
+import scala.collection.mutable.ListBuffer
+
 trait ExtractArtistLegacyInfoUseCase extends ExtractArtistLegacyInfoService {
 
   import ExtractArtistLegacyInfoUseCase._
@@ -36,21 +38,30 @@ trait ExtractArtistLegacyInfoUseCase extends ExtractArtistLegacyInfoService {
     } yield groupByKey -> result
 
     // Merge duplicate artists based on their key
-    duplicateResult.groupBy(_._1).values.toList map { artist =>
-      artist map (_._2) reduce { (result1, result2) =>
-        result1 map {
-          case (k, v) if k == Constants.Artist => (k, v)
-          case (otherKey, otherValue) =>
-            result2 get otherKey match {
-              case Some(value) => otherValue match {
-                case l: List[Any] => (otherKey, (value +: l).distinct)
-                case a: Any => (otherKey, List(a, value).distinct)
-              }
-              case None => (otherKey, otherValue)
-            }
-        }
+    for {
+      artists <- duplicateResult.groupBy(_._1).values.toList // ._1 is the same key as input param
+      works = ListBuffer.empty[Map[String, Any]]
+      _ = artists map (_._2) foreach { artist => // ._2 is list of artist with duplicate name
+        works.append(artist - key)
       }
-    }
+      name = artists.map(_._1).headOption.getOrElse("")
+    } yield  Map(key -> name, Constants.WORKS -> works)
+
+
+
+//          case (k, v) if k == Constants.ARTIST => (k, v)
+//          case (otherKey, otherValue) =>
+//            result2 get otherKey match {
+//              case Some(value) => otherValue match {
+//                works += ()
+////                case i: Int => (otherKey, value.toString.toInt + i)
+////                case l: List[Any] => (otherKey, (value +: l).distinct)
+////                case a: Any => (otherKey, List(a, value).distinct)
+//              }
+//              case None => (otherKey, otherValue)
+//            }
+//        }
+//      }
   }
 }
 
