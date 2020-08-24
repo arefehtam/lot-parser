@@ -11,7 +11,7 @@ object Application extends App {
 
   logger.info(
     jsonFormat.writePretty(
-         extractArtistLegacyInfoService call "artist"
+         extractArtistLegacyInfoService call "artist" map (_.info)
     )
   )
 }

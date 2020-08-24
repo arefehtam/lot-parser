@@ -1,6 +1,7 @@
 package ir.pr.saman.parser.html.contract.service
 
-trait ExtractArtistArtInfoService extends Service[String, List[Map[String, Any]]]
+import ir.pr.saman.parser.html.domain.ArtistArt
+
+trait ExtractArtistArtInfoService extends Service[String, List[ArtistArt]]
 
 object ExtractArtistArtInfoService
-
