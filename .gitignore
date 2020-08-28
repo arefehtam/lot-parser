@@ -20,5 +20,9 @@ project/plugins/project/
 *.class
 *.log
 
-# End of https://www.gitignore.io/api/sbt,scala
+.idea/*
+project/project/
+src/main/resources/application.conf
+src/main/resources/data/
 
+# End of https://www.gitignore.io/api/sbt,scala
